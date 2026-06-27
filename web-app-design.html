@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imili Pocket – Personal Finance Tracker</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== CASE STUDY PAGE SPECIFIC STYLES ===== */
+        .case-hero {
+            padding-top: calc(var(--header-height) + 5rem);
+            padding-bottom: 4rem;
+            text-align: center;
+        }
+
+        .case-title {
+            font-size: clamp(2.2rem, 4.5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+        
+        .case-title span {
+            background: linear-gradient(90deg, #b485ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .case-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-color-muted);
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Tags */
+        .case-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .tag {
+            background: rgba(15, 17, 26, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #e2e8f0;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tag i {
+            color: #b485ff;
+            font-size: 1.2rem;
+        }
+        
+        .tag:hover {
+            border-color: rgba(139, 92, 246, 0.8);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Overview Cards */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .overview-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .overview-card {
+            background: rgba(15, 17, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            text-align: left;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .overview-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .card-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b485ff;
+            font-size: 1.2rem;
+            box-shadow: inset 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+
+        .ov-label {
+            font-size: 0.8rem;
+            color: #b485ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .ov-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #f8fafc;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    
+    <!-- Navigation -->
+    <header id="header" class="header scroll-header">
+        <nav class="container nav">
+            <a href="index.html" class="logo">Designer<span>.</span></a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="index.html#work" class="nav-link active">Work</a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html#work" class="btn btn-outline"><i class='bx bx-left-arrow-alt'></i> Back to Work</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="case-hero container">
+            <h1 class="case-title">Imili Pocket – Personal Finance Tracker <span>Mobile App</span></h1>
+            <p class="case-subtitle">A secure Android app that helps users track income, expenses, budgets, and spending insights through a simple and intuitive mobile experience.</p>
+
+            <!-- Tags -->
+            <div class="case-tags">
+                <span class="tag"><i class='bx bxl-android'></i> Android App</span>
+                <span class="tag"><i class='bx bx-code-block'></i> Kotlin</span>
+                <span class="tag"><i class='bx bx-bar-chart-alt-2'></i> Finance Tracker</span>
+                <span class="tag"><i class='bx bx-pie-chart-alt-2'></i> Budgeting</span>
+                <span class="tag"><i class='bx bx-wallet'></i> Expense Management</span>
+                <span class="tag"><i class='bx bx-line-chart'></i> Data Visualization</span>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="overview-grid">
+                <!-- Role -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-user'></i></div>
+                        <span class="ov-label">ROLE</span>
+                    </div>
+                    <p class="ov-value">UI/UX Designer &<br>Android UI Developer</p>
+                </div>
+                
+                <!-- Platform -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-mobile-alt'></i></div>
+                        <span class="ov-label">PLATFORM</span>
+                    </div>
+                    <p class="ov-value">Android</p>
+                </div>
+                
+                <!-- Tools -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-wrench'></i></div>
+                        <span class="ov-label">TOOLS</span>
+                    </div>
+                    <p class="ov-value">Kotlin, Android Studio, XML, ViewBinding</p>
+                </div>
+                
+                <!-- Type -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-grid-alt'></i></div>
+                        <span class="ov-label">TYPE</span>
+                    </div>
+                    <p class="ov-value">Personal Finance App</p>
+                </div>
+                
+                <!-- Focus -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-target-lock'></i></div>
+                        <span class="ov-label">FOCUS</span>
+                    </div>
+                    <p class="ov-value">Budget & Expense Tracking</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About the Project -->
+        <section class="container" style="margin-bottom: 5rem;">
+            <div class="glass-card" style="
+                padding: 2.5rem 2.8rem;
+                background: rgba(15, 17, 26, 0.6);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(139, 92, 246, 0.2);
+                border-left: 4px solid #b485ff;
+                border-radius: 1.4rem;
+                position: relative;
+                overflow: hidden;
+            ">
+                <!-- decorative icon -->
+                <i class='bx bx-line-chart' style="
+                    position: absolute;
+                    top: -10px;
+                    right: 1.5rem;
+                    font-size: 7rem;
+                    color: rgba(139, 92, 246, 0.05);
+                    pointer-events: none;
+                    line-height: 1;
+                "></i>
+
+                <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem;">
+                    About the <span style="background: linear-gradient(90deg, #b485ff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Project</span>
+                </h2>
+                <div style="width: 50px; height: 3px; background: linear-gradient(90deg, #b485ff, #8b5cf6); border-radius: 2px; margin-bottom: 1.4rem;"></div>
+
+                <p style="
+                    font-size: 1.05rem;
+                    color: var(--text-color-muted);
+                    line-height: 1.85;
+                    max-width: 860px;
+                ">
+                    <strong style="color: #f8fafc;">Imili Pocket</strong> is a personal finance tracker app designed to help users manage income, expenses, and monthly budgets through a simple analytics dashboard. The app solves the problem of unclear money tracking by using summary cards, category spending charts, income trends, and budget comparison visuals, allowing users to understand their financial habits and make better spending decisions.
+                </p>
+                <p style="
+                    font-size: 1.05rem;
+                    color: var(--text-color-muted);
+                    line-height: 1.85;
+                    max-width: 860px;
+                    margin-top: 1rem;
+                ">
+                    Tested the Imili Pocket prototype with 5 users to evaluate dashboard readability, transaction entry, and budget tracking. Based on feedback, improved 3 flows to make financial summaries, transaction actions, and budget progress easier to understand.
+                </p>
+            </div>
+        </section>
+
+        <!-- Design Wireframe -->
+        <section class="container" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem;">
+                Design <span style="background: linear-gradient(90deg, #b485ff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wireframe</span>
+            </h2>
+            <div style="width: 50px; height: 3px; background: linear-gradient(90deg, #b485ff, #8b5cf6); border-radius: 2px; margin-bottom: 1.4rem;"></div>
+        </section>
+
+        <!-- Design Wireframes -->
+        <section class="container" style="margin-bottom: 5rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+            <img src="assets/dashboard.png" alt="Imili Pocket Dashboard" style="border-radius: 1.5rem; width: 100%; max-width: 350px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+            <img src="assets/budget.png" alt="Imili Pocket Budget" style="border-radius: 1.5rem; width: 100%; max-width: 350px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="footer-copy">&#169; All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

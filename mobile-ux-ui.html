@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew – Coffee Ordering App | Mobile UX/UI Case Study</title>
+    <meta name="description" content="Case study for Brew, a seamless coffee ordering mobile app with user-friendly flow, smooth checkout, and secure payments.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== CASE STUDY PAGE SPECIFIC STYLES ===== */
+        .case-hero {
+            padding-top: calc(var(--header-height) + 5rem);
+            padding-bottom: 4rem;
+            text-align: center;
+        }
+
+        .case-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .case-title {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+        }
+
+        .case-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-color-muted);
+            max-width: 620px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.7;
+        }
+
+        /* Tags */
+        .case-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .tag {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            color: #c4b5fd;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Overview Cards */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .overview-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .overview-card .ov-label {
+            font-size: 0.78rem;
+            color: var(--text-color-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-card .ov-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Wireframe showcase */
+        .wireframe-section {
+            margin-bottom: 5rem;
+        }
+
+        .section-heading {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-heading span {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-divider {
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            margin-bottom: 2.5rem;
+        }
+
+        .wireframe-container {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(139, 92, 246, 0.08);
+            background: #0f1018;
+        }
+
+        .wireframe-container img {
+            width: 100%;
+            display: block;
+            border-radius: 1.5rem;
+        }
+
+        /* User Flow Steps */
+        .flow-section {
+            margin-bottom: 5rem;
+        }
+
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0;
+            position: relative;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -12px;
+            top: 2.5rem;
+            font-size: 1.4rem;
+            color: var(--accent-primary);
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .flow-icon-wrap {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover .flow-icon-wrap {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .flow-step-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .flow-step-desc {
+            font-size: 0.8rem;
+            color: var(--text-color-muted);
+            line-height: 1.4;
+        }
+
+        /* Key Screens */
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .screen-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 1.2rem;
+            overflow: hidden;
+            transition: all 0.35s ease;
+        }
+
+        .screen-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .screen-label {
+            padding: 0.8rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Back CTA */
+        .back-cta {
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <!-- Navigation -->
+    <header id="header" class="header scroll-header">
+        <nav class="container nav">
+            <a href="index.html" class="logo">Designer<span>.</span></a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="index.html#work" class="nav-link active">Work</a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html#work" class="btn btn-outline"><i class='bx bx-left-arrow-alt'></i> Back to Work</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="case-hero container">
+            <span class="case-label">Featured Project</span>
+            <h1 class="case-title">Brew – Coffee Ordering <span style="background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Mobile App</span></h1>
+            <p class="case-subtitle">A seamless coffee ordering experience with user-friendly flow, smooth checkout, and secure payments.</p>
+
+            <!-- Tags -->
+            <div class="case-tags">
+                <span class="tag">Mobile UX/UI</span>
+                <span class="tag">Coffee App</span>
+                <span class="tag">User Flow</span>
+                <span class="tag">Wireframing</span>
+                <span class="tag">Prototyping</span>
+                <span class="tag">Figma</span>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <p class="ov-label">Role</p>
+                    <p class="ov-value">UI/UX Designer</p>
+                </div>
+                <div class="overview-card">
+                    <p class="ov-label">Platform</p>
+                    <p class="ov-value">iOS &amp; Android</p>
+                </div>
+                <div class="overview-card">
+                    <p class="ov-label">Tools</p>
+                    <p class="ov-value">Figma &amp; FigJam</p>
+                </div>
+                <div class="overview-card">
+                    <p class="ov-label">Type</p>
+                    <p class="ov-value">Mobile Ordering</p>
+                </div>
+                <div class="overview-card">
+                    <p class="ov-label">Focus</p>
+                    <p class="ov-value">Clean User Flow</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About the Project -->
+        <section class="container" style="margin-bottom: 4rem;">
+            <div class="glass-card" style="
+                padding: 2.5rem 2.8rem;
+                border-left: 4px solid transparent;
+                border-image: var(--gradient-primary) 1;
+                border-radius: 1.4rem;
+                position: relative;
+                overflow: hidden;
+            ">
+                <!-- decorative coffee icon -->
+                <i class='bx bx-coffee-togo' style="
+                    position: absolute;
+                    top: -10px;
+                    right: 1.5rem;
+                    font-size: 7rem;
+                    color: rgba(139, 92, 246, 0.05);
+                    pointer-events: none;
+                    line-height: 1;
+                "></i>
+
+                <h2 class="section-heading" style="margin-bottom: 0.4rem;">
+                    About the <span>Project</span>
+                </h2>
+                <div class="section-divider" style="margin-bottom: 1.4rem;"></div>
+
+                <p style="
+                    font-size: 1.05rem;
+                    color: var(--text-color-muted);
+                    line-height: 1.85;
+                    max-width: 860px;
+                ">
+                    <strong style="color: var(--text-color);">Brew</strong> is a mobile coffee shop app designed to make online coffee ordering
+                    simple, fast, and visually appealing. The project focuses on solving the problem of confusing
+                    and crowded ordering interfaces by creating a clean user flow from login and product browsing
+                    to coffee customization, payment, and order confirmation. Using warm coffee-inspired colors,
+                    clear product cards, simple navigation, and easy customization options, the app helps users
+                    quickly find their favorite coffee, personalize it, and complete their order smoothly.
+                </p>
+                <p style="
+                    font-size: 1.05rem;
+                    color: var(--text-color-muted);
+                    line-height: 1.85;
+                    max-width: 860px;
+                    margin-top: 1rem;
+                ">
+                    Tested the Brew prototype with 5 users to evaluate the coffee ordering flow, drink customization, and checkout process. Based on feedback, refined 3 screens to improve navigation clarity, product selection, and payment flow.
+                </p>
+            </div>
+        </section>
+
+        <!-- Wireframe Showcase -->
+        <section class="wireframe-section container">
+            <h2 class="section-heading">Design <span>Wireframe</span></h2>
+            <div class="section-divider"></div>
+            <div class="wireframe-container" style="position: relative; width: 100%; padding-bottom: 61%; overflow: hidden; border-radius: 1.5rem;">
+                <img src="assets/brew_wireframe_original.jpg" alt="Brew Coffee App – UI Screens & Key Flows"
+                     style="position: absolute; top: 0; left: 0; width: 100%; display: block; border-radius: 1.5rem;">
+            </div>
+        </section>
+
+        <!-- User Flow -->
+        <section class="flow-section container">
+            <h2 class="section-heading">User <span>Flow</span></h2>
+            <div class="section-divider"></div>
+            <div class="glass-card" style="padding: 3rem 2rem;">
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="flow-icon-wrap"><i class='bx bx-coffee'></i></div>
+                        <p class="flow-step-title">Welcome</p>
+                        <p class="flow-step-desc">Warm welcome brand screen</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-icon-wrap"><i class='bx bx-user'></i></div>
+                        <p class="flow-step-title">Profile</p>
+                        <p class="flow-step-desc">User information &amp; account</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-icon-wrap"><i class='bx bx-lock-alt'></i></div>
+                        <p class="flow-step-title">Login</p>
+                        <p class="flow-step-desc">Secure login to continue</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-icon-wrap"><i class='bx bx-coffee-togo'></i></div>
+                        <p class="flow-step-title">Choose Coffee</p>
+                        <p class="flow-step-desc">Browse &amp; select your favorite</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-icon-wrap"><i class='bx bx-credit-card'></i></div>
+                        <p class="flow-step-title">Checkout</p>
+                        <p class="flow-step-desc">Review order &amp; payment</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-icon-wrap"><i class='bx bx-check-circle'></i></div>
+                        <p class="flow-step-title">Order Confirmed</p>
+                        <p class="flow-step-desc">Smooth order confirmation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECOND PROJECT: IMILI POCKET -->
+        <!-- ============================================== -->
+        <div style="margin: 6rem 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);"></div>
+
+        <!-- Hero Section -->
+        <section class="case-hero container" style="padding-top: 2rem;">
+            <h1 class="case-title">Imili Pocket – Personal Finance Tracker <span>Mobile App</span></h1>
+            <p class="case-subtitle">A secure Android app that helps users track income, expenses, budgets, and spending insights through a simple and intuitive mobile experience.</p>
+
+            <!-- Tags -->
+            <div class="case-tags">
+                <span class="tag"><i class='bx bxl-android'></i> Android App</span>
+                <span class="tag"><i class='bx bx-code-block'></i> Kotlin</span>
+                <span class="tag"><i class='bx bx-bar-chart-alt-2'></i> Finance Tracker</span>
+                <span class="tag"><i class='bx bx-pie-chart-alt-2'></i> Budgeting</span>
+                <span class="tag"><i class='bx bx-wallet'></i> Expense Management</span>
+                <span class="tag"><i class='bx bx-line-chart'></i> Data Visualization</span>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="overview-grid">
+                <!-- Role -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-user'></i></div>
+                        <span class="ov-label">ROLE</span>
+                    </div>
+                    <p class="ov-value">UI/UX Designer &<br>Android UI Developer</p>
+                </div>
+                
+                <!-- Platform -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-mobile-alt'></i></div>
+                        <span class="ov-label">PLATFORM</span>
+                    </div>
+                    <p class="ov-value">Android</p>
+                </div>
+                
+                <!-- Tools -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-wrench'></i></div>
+                        <span class="ov-label">TOOLS</span>
+                    </div>
+                    <p class="ov-value">Kotlin, Android Studio, XML, ViewBinding</p>
+                </div>
+                
+                <!-- Type -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-grid-alt'></i></div>
+                        <span class="ov-label">TYPE</span>
+                    </div>
+                    <p class="ov-value">Personal Finance App</p>
+                </div>
+                
+                <!-- Focus -->
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class='bx bx-target-lock'></i></div>
+                        <span class="ov-label">FOCUS</span>
+                    </div>
+                    <p class="ov-value">Budget & Expense Tracking</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About the Project -->
+        <section class="container" style="margin-bottom: 5rem;">
+            <div class="glass-card" style="
+                padding: 2.5rem 2.8rem;
+                background: rgba(15, 17, 26, 0.6);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(139, 92, 246, 0.2);
+                border-left: 4px solid #b485ff;
+                border-radius: 1.4rem;
+                position: relative;
+                overflow: hidden;
+            ">
+                <!-- decorative icon -->
+                <i class='bx bx-line-chart' style="
+                    position: absolute;
+                    top: -10px;
+                    right: 1.5rem;
+                    font-size: 7rem;
+                    color: rgba(139, 92, 246, 0.05);
+                    pointer-events: none;
+                    line-height: 1;
+                "></i>
+
+                <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem;">
+                    About the <span style="background: linear-gradient(90deg, #b485ff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Project</span>
+                </h2>
+                <div style="width: 50px; height: 3px; background: linear-gradient(90deg, #b485ff, #8b5cf6); border-radius: 2px; margin-bottom: 1.4rem;"></div>
+
+                <p style="
+                    font-size: 1.05rem;
+                    color: var(--text-color-muted);
+                    line-height: 1.85;
+                    max-width: 860px;
+                ">
+                    <strong style="color: #f8fafc;">Imili Pocket</strong> is a personal finance tracker app designed to help users manage income, expenses, and monthly budgets through a simple analytics dashboard. The app solves the problem of unclear money tracking by using summary cards, category spending charts, income trends, and budget comparison visuals, allowing users to understand their financial habits and make better spending decisions.
+                </p>
+                <p style="
+                    font-size: 1.05rem;
+                    color: var(--text-color-muted);
+                    line-height: 1.85;
+                    max-width: 860px;
+                    margin-top: 1rem;
+                ">
+                    Tested the Imili Pocket prototype with 5 users to evaluate dashboard readability, transaction entry, and budget tracking. Based on feedback, improved 3 flows to make financial summaries, transaction actions, and budget progress easier to understand.
+                </p>
+            </div>
+        </section>
+
+        <!-- Design Wireframe -->
+        <section class="container" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem;">
+                Design <span style="background: linear-gradient(90deg, #b485ff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wireframe</span>
+            </h2>
+            <div style="width: 50px; height: 3px; background: linear-gradient(90deg, #b485ff, #8b5cf6); border-radius: 2px; margin-bottom: 1.4rem;"></div>
+        </section>
+
+        <!-- Design Wireframes Image -->
+        <section class="container" style="margin-bottom: 5rem; display: flex; justify-content: center;">
+            <img src="assets/imili_wireframe.png" alt="Imili Pocket Design Wireframes" style="border-radius: 1.5rem; width: 100%; max-width: 1000px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        </section>
+
+        <!-- User Flow -->
+        <section class="container" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem;">
+                User <span style="background: linear-gradient(90deg, #b485ff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Flow</span>
+            </h2>
+            <div style="width: 50px; height: 3px; background: linear-gradient(90deg, #b485ff, #8b5cf6); border-radius: 2px; margin-bottom: 1.4rem;"></div>
+        </section>
+
+        <!-- User Flow Image -->
+        <section class="container" style="margin-bottom: 5rem; display: flex; justify-content: center;">
+            <img src="assets/imili_user_flow.png" alt="Imili Pocket User Flow" style="border-radius: 1.5rem; width: 100%; max-width: 1000px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        </section>
+        <!-- Back CTA -->
+        <div class="back-cta container">
+            <a href="index.html#work" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2.5rem;">
+                <i class='bx bx-left-arrow-alt'></i> Back to All Projects
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="footer-copy">&#169; All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

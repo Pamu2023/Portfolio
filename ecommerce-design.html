@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub – Premium E-Commerce Web App | UI/UX Case Study</title>
+    <meta name="description" content="ShopHub is a premium e-commerce web app designed to create a smooth shopping journey from product browsing to checkout.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ===== PAGE-LEVEL KEYFRAMES & EFFECTS ===== */
+
+        /* Animated gradient text */
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Shimmer border sweep */
+        @keyframes shimmerBorder {
+            0%   { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Soft pulse glow */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(139,92,246,0.25), 0 8px 32px rgba(0,0,0,0.4); }
+            50%       { box-shadow: 0 0 40px rgba(139,92,246,0.5), 0 8px 48px rgba(59,130,246,0.25); }
+        }
+
+        /* Float vertical */
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-8px); }
+        }
+
+        /* Sparkle twinkle */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50%       { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Slide-in from bottom */
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Fade-in scale */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* Horizontal glow sweep on image */
+        @keyframes glowSweep {
+            0%   { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        /* ===== HERO BADGE ===== */
+        .ec-badge {
+            display: inline-block;
+            padding: 0.45rem 1.4rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, rgba(180,133,255,0.15), rgba(59,130,246,0.15));
+            border: 1px solid rgba(180,133,255,0.35);
+            color: #c4b5fd;
+            margin-bottom: 1.8rem;
+            animation: slideInUp 0.6s ease both;
+            animation-delay: 0.1s;
+            position: relative;
+            overflow: hidden;
+        }
+        .ec-badge::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+            animation: glowSweep 2.5s linear infinite;
+        }
+
+        /* ===== ANIMATED GRADIENT TITLE ===== */
+        .ec-title {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            animation: slideInUp 0.6s ease both;
+            animation-delay: 0.2s;
+        }
+        .ec-title .gradient-word {
+            background: linear-gradient(270deg, #c4b5fd, #8b5cf6, #3b82f6, #06b6d4, #8b5cf6, #c4b5fd);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        /* ===== SUBTITLE ===== */
+        .ec-subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.85;
+            max-width: 680px;
+            margin: 0 auto 3rem auto;
+            animation: slideInUp 0.6s ease both;
+            animation-delay: 0.3s;
+        }
+
+        /* ===== TAGS ===== */
+        .ec-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            animation: slideInUp 0.6s ease both;
+            animation-delay: 0.4s;
+        }
+        .ec-tag {
+            padding: 0.55rem 1.4rem;
+            border-radius: 2rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: 1px solid rgba(139,92,246,0.25);
+            background: rgba(139,92,246,0.06);
+            color: #c4b5fd;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .ec-tag:hover {
+            background: rgba(139,92,246,0.18);
+            border-color: rgba(139,92,246,0.6);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(139,92,246,0.25);
+        }
+
+        /* ===== OVERVIEW GRID ===== */
+        .ec-overview-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            width: 100%;
+            animation: slideInUp 0.6s ease both;
+            animation-delay: 0.5s;
+        }
+
+        /* Shimmer border card */
+        .ec-card {
+            flex: 1;
+            min-width: 150px;
+            max-width: 200px;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-radius: 1.2rem;
+            position: relative;
+            background: rgba(255,255,255,0.025);
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            cursor: default;
+        }
+        /* Shimmer border via pseudo-element */
+        .ec-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.2rem;
+            padding: 1px;
+            background: linear-gradient(
+                90deg,
+                rgba(255,255,255,0.05) 0%,
+                rgba(139,92,246,0.6) 40%,
+                rgba(59,130,246,0.6) 60%,
+                rgba(255,255,255,0.05) 100%
+            );
+            background-size: 200% 100%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            animation: shimmerBorder 3s linear infinite;
+        }
+        .ec-card:hover {
+            transform: translateY(-6px);
+            animation: pulseGlow 2s ease infinite;
+        }
+        .ec-card:hover .ec-card-icon {
+            transform: scale(1.15) rotate(-5deg);
+            color: #a78bfa;
+        }
+        .ec-card-icon {
+            font-size: 1.6rem;
+            color: #7c6aad;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        .ec-card-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .ec-card-value {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #e2e8f0;
+        }
+
+        /* ===== SPARKLE DECORATIONS ===== */
+        .sparkle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .sparkle-1 {
+            width: 6px; height: 6px;
+            background: #c4b5fd;
+            box-shadow: 0 0 8px #c4b5fd;
+            top: 8%; right: 12%;
+            animation: twinkle 2.5s ease-in-out infinite;
+        }
+        .sparkle-2 {
+            width: 4px; height: 4px;
+            background: #60a5fa;
+            box-shadow: 0 0 6px #60a5fa;
+            top: 22%; left: 8%;
+            animation: twinkle 3.5s ease-in-out infinite 0.8s;
+        }
+        .sparkle-3 {
+            width: 5px; height: 5px;
+            background: #f472b6;
+            box-shadow: 0 0 8px #f472b6;
+            bottom: 40%; right: 6%;
+            animation: twinkle 2s ease-in-out infinite 1.5s;
+        }
+        .sparkle-4 {
+            width: 3px; height: 3px;
+            background: #34d399;
+            box-shadow: 0 0 5px #34d399;
+            top: 55%; left: 5%;
+            animation: twinkle 4s ease-in-out infinite 0.3s;
+        }
+
+        /* ===== SECTION DIVIDER ===== */
+        .ec-divider {
+            width: 100%;
+            max-width: 800px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139,92,246,0.4), rgba(59,130,246,0.4), transparent);
+            margin: 4rem auto;
+        }
+
+        /* ===== ABOUT THE PROJECT ===== */
+        .ec-about {
+            width: 100%;
+            max-width: 820px;
+            text-align: left;
+            animation: slideInUp 0.7s ease both;
+        }
+        .ec-section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8b5cf6;
+            margin-bottom: 1rem;
+        }
+        .ec-section-label::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            border-radius: 2px;
+        }
+        .ec-about h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #e2e8f0;
+            line-height: 1.3;
+        }
+        .ec-about p {
+            color: #94a3b8;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        /* ===== DESIGN WIREFRAME SECTION ===== */
+        .ec-wireframe {
+            width: 100%;
+            max-width: 1100px;
+            text-align: left;
+            animation: fadeInScale 0.8s ease both;
+        }
+        .ec-wireframe h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+        }
+
+        /* Premium image frame */
+        .ec-image-frame {
+            position: relative;
+            border-radius: 1.5rem;
+            padding: 3px;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6, #06b6d4, #8b5cf6);
+            background-size: 300% 300%;
+            animation: gradientShift 5s ease infinite;
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.05),
+                0 20px 60px rgba(0,0,0,0.5),
+                0 0 80px rgba(139,92,246,0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .ec-image-frame:hover {
+            transform: scale(1.01);
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.08),
+                0 30px 80px rgba(0,0,0,0.6),
+                0 0 120px rgba(139,92,246,0.35);
+        }
+        .ec-image-frame::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            border-radius: 1.5rem;
+            animation: glowSweep 3.5s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .ec-image-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 1.3rem;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* Image caption */
+        .ec-image-caption {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            letter-spacing: 0.5px;
+        }
+        .ec-image-caption span {
+            color: #8b5cf6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <!-- Sparkle decorations -->
+    <div class="sparkle sparkle-1"></div>
+    <div class="sparkle sparkle-2"></div>
+    <div class="sparkle sparkle-3"></div>
+    <div class="sparkle sparkle-4"></div>
+
+    <!-- Navigation -->
+    <header id="header" class="header scroll-header">
+        <nav class="container nav">
+            <a href="index.html" class="logo">Designer<span>.</span></a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="index.html#work" class="nav-link active">Work</a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html#work" class="btn btn-outline"><i class='bx bx-left-arrow-alt'></i> Back to Work</a>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding-top: calc(var(--header-height) + 2rem); min-height: 80vh; padding-bottom: 6rem;">
+
+        <!-- Hero Section -->
+        <section class="case-hero container" style="text-align: center; display: flex; flex-direction: column; align-items: center; position: relative;">
+
+            <!-- Badge -->
+            <div class="ec-badge">✦ Featured Project ✦</div>
+
+            <!-- Animated Title -->
+            <h1 class="ec-title">
+                <span class="gradient-word">ShopHub</span> – Premium E-Commerce <span class="gradient-word">Web App</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="ec-subtitle">
+                A premium desktop shopping experience with product discovery, wishlist, cart, secure checkout, and smooth order completion.
+            </p>
+
+            <!-- Tags -->
+            <div class="ec-tags">
+                <span class="ec-tag">E-Commerce UX/UI</span>
+                <span class="ec-tag">Web Design</span>
+                <span class="ec-tag">User Flow</span>
+                <span class="ec-tag">Wireframing</span>
+                <span class="ec-tag">Prototyping</span>
+                <span class="ec-tag">Figma</span>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="ec-overview-grid">
+                <!-- Role -->
+                <div class="ec-card">
+                    <div class="ec-card-icon"><i class='bx bx-user-circle'></i></div>
+                    <p class="ec-card-label">Role</p>
+                    <p class="ec-card-value">UI/UX Designer</p>
+                </div>
+                <!-- Platform -->
+                <div class="ec-card">
+                    <div class="ec-card-icon"><i class='bx bx-desktop'></i></div>
+                    <p class="ec-card-label">Platform</p>
+                    <p class="ec-card-value">Desktop Web</p>
+                </div>
+                <!-- Tools -->
+                <div class="ec-card">
+                    <div class="ec-card-icon"><i class='bx bx-pen'></i></div>
+                    <p class="ec-card-label">Tools</p>
+                    <p class="ec-card-value">Figma &amp; FigJam</p>
+                </div>
+                <!-- Type -->
+                <div class="ec-card">
+                    <div class="ec-card-icon"><i class='bx bx-store-alt'></i></div>
+                    <p class="ec-card-label">Type</p>
+                    <p class="ec-card-value">E-Commerce Platform</p>
+                </div>
+                <!-- Focus -->
+                <div class="ec-card">
+                    <div class="ec-card-icon"><i class='bx bx-cart-check'></i></div>
+                    <p class="ec-card-label">Focus</p>
+                    <p class="ec-card-value">Seamless Checkout Flow</p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="ec-divider"></div>
+
+            <!-- About the Project -->
+            <div class="ec-about">
+                <span class="ec-section-label">Overview</span>
+                <h2>About the Project</h2>
+                <p>
+                    ShopHub is a premium e-commerce web app designed to create a smooth shopping journey from product browsing to checkout. It solves the problem of crowded and confusing shopping interfaces by using clear navigation, product filters, detailed product pages, wishlist support, simple cart management, and a step-by-step secure checkout flow.
+                </p>
+            </div>
+
+            <!-- Divider -->
+            <div class="ec-divider"></div>
+
+            <!-- Design Wireframe -->
+            <div class="ec-wireframe">
+                <span class="ec-section-label">Screens &amp; Flow</span>
+                <h2>Design Wireframe</h2>
+
+                <div class="ec-image-frame">
+                    <img
+                        src="assets/shophub_wireframe.png"
+                        alt="ShopHub Design Wireframe – Full Screen Overview"
+                        loading="lazy"
+                    >
+                </div>
+                <p class="ec-image-caption">
+                    <span>ShopHub</span> — All 5 screens: Landing / Home · All Products · Shopping Cart · Checkout · Order Confirmation
+                </p>
+            </div>
+
+            <!-- Divider -->
+            <div class="ec-divider"></div>
+
+            <!-- User Flow -->
+            <div class="ec-userflow">
+                <span class="ec-section-label">Journey Map</span>
+                <h2>User Flow</h2>
+
+                <!-- Flow steps wrap -->
+                <div class="uf-grid">
+
+                    <!-- Step 1 -->
+                    <div class="uf-step">
+                        <div class="uf-num">01</div>
+                        <div class="uf-icon"><i class='bx bx-home-alt-2'></i></div>
+                        <p class="uf-name">Landing / Home</p>
+                    </div>
+
+                    <div class="uf-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+
+                    <!-- Step 2 -->
+                    <div class="uf-step">
+                        <div class="uf-num">02</div>
+                        <div class="uf-icon"><i class='bx bx-list-ul'></i></div>
+                        <p class="uf-name">Product Listing</p>
+                    </div>
+
+                    <div class="uf-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+
+                    <!-- Step 3 -->
+                    <div class="uf-step">
+                        <div class="uf-num">03</div>
+                        <div class="uf-icon"><i class='bx bx-detail'></i></div>
+                        <p class="uf-name">Product Details</p>
+                    </div>
+
+                    <div class="uf-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+
+                    <!-- Step 4 -->
+                    <div class="uf-step">
+                        <div class="uf-num">04</div>
+                        <div class="uf-icon"><i class='bx bx-cart-add'></i></div>
+                        <p class="uf-name">Add to Cart</p>
+                    </div>
+
+                    <div class="uf-arrow uf-arrow-break"><i class='bx bx-right-arrow-alt'></i></div>
+
+                    <!-- Step 5 -->
+                    <div class="uf-step">
+                        <div class="uf-num">05</div>
+                        <div class="uf-icon"><i class='bx bx-cart'></i></div>
+                        <p class="uf-name">Shopping Cart</p>
+                    </div>
+
+                    <div class="uf-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+
+                    <!-- Step 6 -->
+                    <div class="uf-step">
+                        <div class="uf-num">06</div>
+                        <div class="uf-icon"><i class='bx bxs-truck'></i></div>
+                        <p class="uf-name">Checkout – Shipping</p>
+                    </div>
+
+                    <div class="uf-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+
+                    <!-- Step 7 -->
+                    <div class="uf-step">
+                        <div class="uf-num">07</div>
+                        <div class="uf-icon"><i class='bx bx-credit-card'></i></div>
+                        <p class="uf-name">Checkout – Payment</p>
+                    </div>
+
+                    <div class="uf-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+
+                    <!-- Step 8 -->
+                    <div class="uf-step">
+                        <div class="uf-num">08</div>
+                        <div class="uf-icon"><i class='bx bx-check-circle'></i></div>
+                        <p class="uf-name">Order Confirmation</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <style>
+        /* ===== USER FLOW ===== */
+        .ec-userflow {
+            width: 100%;
+            max-width: 1100px;
+            text-align: left;
+        }
+        .ec-userflow h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            color: #e2e8f0;
+        }
+
+        /* Flow grid: steps + arrows in a single flex row that wraps */
+        .uf-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem;
+            row-gap: 2rem;
+        }
+
+        /* Individual step card */
+        .uf-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            width: 110px;
+            position: relative;
+            cursor: default;
+            transition: transform 0.3s ease;
+        }
+        .uf-step:hover { transform: translateY(-6px); }
+
+        /* Step number bubble */
+        .uf-num {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #8b5cf6;
+            background: rgba(139,92,246,0.1);
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 2rem;
+            padding: 0.18rem 0.65rem;
+            line-height: 1.4;
+        }
+        /* Last step number — green accent */
+        .uf-num-last {
+            color: #34d399;
+            background: rgba(52,211,153,0.1);
+            border-color: rgba(52,211,153,0.35);
+        }
+
+        /* Icon circle */
+        .uf-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.03);
+            border: 1.5px solid rgba(139,92,246,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            color: #a78bfa;
+            transition: all 0.35s ease;
+            box-shadow: 0 0 0 0 rgba(139,92,246,0);
+        }
+        .uf-step:hover .uf-icon {
+            background: rgba(139,92,246,0.15);
+            border-color: rgba(139,92,246,0.7);
+            color: #c4b5fd;
+            box-shadow: 0 0 20px rgba(139,92,246,0.3);
+        }
+        /* Last step icon — green */
+        .uf-icon-last {
+            border-color: rgba(52,211,153,0.4);
+            color: #34d399;
+        }
+        .uf-step:hover .uf-icon-last {
+            background: rgba(52,211,153,0.12);
+            border-color: rgba(52,211,153,0.8);
+            color: #6ee7b7;
+            box-shadow: 0 0 20px rgba(52,211,153,0.3);
+        }
+
+        /* Step name */
+        .uf-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #94a3b8;
+            text-align: center;
+            line-height: 1.35;
+            transition: color 0.3s ease;
+        }
+        .uf-step:hover .uf-name { color: #e2e8f0; }
+
+        /* Arrow connector */
+        .uf-arrow {
+            font-size: 1.6rem;
+            color: rgba(139,92,246,0.45);
+            display: flex;
+            align-items: center;
+            padding-bottom: 1.4rem; /* align with icon center */
+            transition: color 0.3s ease;
+        }
+        .uf-arrow:hover { color: rgba(139,92,246,0.9); }
+
+        /* Responsive: hide arrows that would break awkwardly on small screens */
+        @media (max-width: 900px) {
+            .uf-arrow-break { display: none; }
+            .uf-step { width: 90px; }
+            .uf-icon { width: 54px; height: 54px; font-size: 1.4rem; }
+        }
+        @media (max-width: 600px) {
+            .uf-grid { gap: 0.4rem; row-gap: 1.5rem; }
+            .uf-arrow { font-size: 1.1rem; }
+            .uf-step { width: 76px; }
+            .uf-icon { width: 46px; height: 46px; font-size: 1.2rem; }
+            .uf-name { font-size: 0.68rem; }
+        }
+        </style>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="footer-copy">&#169; All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll-based reveal for .ec-about and .ec-wireframe
+        const revealTargets = document.querySelectorAll('.ec-about, .ec-wireframe, .ec-overview-grid');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealTargets.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
